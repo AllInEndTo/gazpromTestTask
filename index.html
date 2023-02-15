@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ECharts</title>
+    <script src="echarts.min.js"></script>
+</head>
+<body>
+<div id="main" style="
+    width: 780px;
+    height:560px;
+    position: fixed;
+    top: 15%;
+    left: 25%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);"
+></div>
+<script type="text/javascript">
+
+    let myChart = echarts.init(document.getElementById('main'));
+
+    let option = {
+        title: {
+            text: 'Проекты в программах и вне программ',
+            subtext: 'Сумма и процентное соотношение проектов, находящихся в программах и вне программ',
+            right: '21%',
+            top: '5%'
+        },
+        color: ['#0078D2', '#56B9F2', '#00724C', '#22C38E'],
+        dataset: {
+            source: [
+                ["type", 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь'],
+                ["В программе ИТ", 220, 182, 191, 234, 290, 330, 310],
+                ["В программе ЦП", 120, 120, 120, 120, 120, 120, 120],
+                ["Вне программ ИТ", 120, 132, 101, 134, 290, 230, 220],
+                ["Вне программ ЦП", 620, 732, 701, 734, 1090, 1130, 1120],
+            ]
+            // Думаю что неправильно сделал БД, в связи с чем в дальнейшем не смог справиться с 2 подзадачами
+        },
+        legend: {
+            bottom: '3%'
+        },
+        tooltip: {
+            trigger: "axis",
+            axisPointer: {
+                type: "none"
+            },
+            // Хотел через formatter изменить табличку с доп. информацией - не вышло.
+            // formatter: function () {
+            //     return `${option.dataset.source} 2022`
+            // }
+        },
+        grid: {
+            top: '20%',
+            containLabel: true
+        },
+        xAxis: {
+            type: "category",
+            axisTick: {
+                alignWithLabel: true
+            },
+        },
+        yAxis: {},
+        series: [{
+            type: "bar",
+            seriesLayoutBy: "row",
+            stack: 'x1',
+            label: {
+                show: true,
+                position: 'top',
+                // Пытался в formatter через if else обращаться к option.legend, option.series[i],
+                // чтобы скрывать/показывать параметр, в других 2 хотел реализовать сумму 2 столбцов, как в примере.
+                // Не получилось
+                // formatter: function(params) {
+                //     if (option.legend) {
+                //         return 'label'
+                //     } else if (!option.legend) {
+                //         return params.value[params.encode.y[0]]
+                //     }
+                // }
+            },
+        }, {
+            type: "bar",
+            seriesLayoutBy: "row",
+            stack: 'x1',
+            label: {
+                show: true,
+                position: 'top',
+            },
+
+        }, {
+            type: "bar",
+            seriesLayoutBy: "row",
+            stack: 'x2',
+            label: {
+                show: true,
+                position: 'top',
+            },
+        }, {
+            type: "bar",
+            seriesLayoutBy: "row",
+            stack: 'x2',
+            label: {
+                show: true,
+                position: 'top',
+            },
+        },]
+    };
+
+    myChart.setOption(option);
+</script>
+</body>
+</html>
